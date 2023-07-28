@@ -7,12 +7,8 @@ const AppError = require("./utils/AppError");
 const globalErrorHandler = require("./controllers/errorController");
 
 const userRouter = require("./routes/userRoutes");
-// const profileRouter = require("./routes/profileRoutes");
+
 const postRouter = require("./routes/postRoutes");
-// const commentRouter = require("./routes/commentRoutes");
-// const imageRouter = require("./routes/imageRoutes");
-// const categoryRouter = require("./routes/categoryRoutes");
-// const tagRouter = require("./routes/tagRoutes");
 
 //---------------------xxx-----------------------------------
 
@@ -105,41 +101,6 @@ app.use(express.json({ limit: "50mb" })); //middleware for reading data from the
 //this middle helps when we want directly submit our data using form to the url using acton and method -this helps in  parsing submitted data so that value is stored with name of 'name'(of input) property
 app.use(express.urlencoded({ extended: true, limit: "50mb" }));
 
-//---------------------xxx-----------------------------------
-
-// //--------------------------------------------------------
-// //------------middleware--------------------------------------------
-// //Implementing CORS -Cross-Origin Resource Sharing (CORS) is an HTTP-header based mechanism that allows a server to indicate any origins (domain, scheme, or port) other than its own from which a browser should permit loading resources.
-// //this enables other websites to access our api
-// app.use(
-//   cors({
-//     origin: "http://localhost:3000",
-//     credentials: true,
-//   })
-// ); //it adds some headers//"'Access-conterol-allow-origin':*"-->Access-conterol-allow-origin header set to everything
-// //if our api(backend) is at 'https://api.natours.com' and our frontend at 'https://natours.com' then we need to set origin as frontend url in cors in our app
-// //app.use(cors({origin:'https://natours.com'}))
-
-// //enabling cors for all the routes in our app //here 'options' is a http method just like get,post..which is executed before real http method is executed this method asks server whether next next real http method is safe or not - so here this is enabled for all the routes so that 'delete','patch' and 'put' methods are made saf and allowed
-// app.options("*", cors());
-// app.use(
-//   session({
-//     secret: "keyboard cat",
-//     resave: false,
-//     saveUninitialized: true,
-//     cookie: { secure: false, sameSite: "none" },
-//   })
-// );
-// //Body parser middlware
-// app.use(express.json({ limit: "50mb" })); //middleware for reading data from the body into req.body//here if body contains more than 10kb of data then it will not read
-
-// //this middle helps when we want directly submit our data using form to the url using acton and method -this helps in  parsing submitted data so that value is stored with name of 'name'(of input) property
-// app.use(express.urlencoded({ extended: false, limit: "50mb" }));
-
-// // app.use(cookieParser());
-// // app.use(bodyParser.urlencoded({ extended: true }));
-// // app.use(fileUpload());
-
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
@@ -149,12 +110,8 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/v1", userRouter);
-// app.use("/api/v1", profileRouter);
+
 app.use("/api/v1", postRouter);
-// app.use("/api/v1", commentRouter);
-// // app.use("/api/v1", imageRouter);
-// app.use("/api/v1", categoryRouter);
-// app.use("/api/v1", tagRouter);
 
 //-----HANDLING UNHANDLED ROUTES---------------------------
 app.use("*", (req, res, next) => {
